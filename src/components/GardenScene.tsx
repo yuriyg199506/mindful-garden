@@ -8,7 +8,7 @@ import type { MindfulEntry } from '../types'
 
 interface Props { entries: MindfulEntry[]; onSelect: (entry: MindfulEntry) => void; compact?: boolean }
 
-function ConstellationFlower({ position, scale = 1, phase = 0 }: { position: [number,number,number]; scale?: number; phase?: number }) {
+function ConstellationFlower({ position, scale = 1, phase = 0, opacity = .42 }: { position: [number,number,number]; scale?: number; phase?: number; opacity?: number }) {
   const geometry = useMemo(() => {
     const points: THREE.Vector3[] = []
     for (let petal = 0; petal < 6; petal++) {
@@ -29,7 +29,7 @@ function ConstellationFlower({ position, scale = 1, phase = 0 }: { position: [nu
   }, [phase])
   return <Float speed={.55} rotationIntensity={.04} floatIntensity={.08}>
     <points geometry={geometry} position={position} scale={scale}>
-      <pointsMaterial color="#a9f8e0" size={.035} sizeAttenuation transparent opacity={.42} depthWrite={false} blending={THREE.AdditiveBlending} />
+      <pointsMaterial color="#a9f8e0" size={.035} sizeAttenuation transparent opacity={opacity} depthWrite={false} blending={THREE.AdditiveBlending} />
     </points>
   </Float>
 }
@@ -37,6 +37,7 @@ function ConstellationFlower({ position, scale = 1, phase = 0 }: { position: [nu
 function Scene({ entries, onSelect, compact }: Props) {
   const [hovered, setHovered] = useState<string | null>(null)
   const shown = entries.slice(0, compact ? 8 : 18)
+  const constellationOpacity = .42 - entries.length * .055
   return <>
     <color attach="background" args={['#06131a']} />
     <fog attach="fog" args={['#07171f', 7, 15]} />
@@ -50,10 +51,10 @@ function Scene({ entries, onSelect, compact }: Props) {
     <mesh rotation={[-Math.PI/2,0,0]} position={[0,-.035,0]}>
       <ringGeometry args={[2.8,7.5,64]} /><meshBasicMaterial color="#0c342f" transparent opacity={.25} blending={THREE.AdditiveBlending} />
     </mesh>
-    {entries.length === 0 && <>
-      <ConstellationFlower position={[-2.5,0,.8]} scale={.78} phase={.3}/>
-      <ConstellationFlower position={[0,0,.2]} scale={.92} phase={1.4}/>
-      <ConstellationFlower position={[2.6,0,1]} scale={.7} phase={2.1}/>
+    {entries.length <= 3 && <>
+      <ConstellationFlower position={[-2.5,0,.8]} scale={.78} phase={.3} opacity={constellationOpacity}/>
+      <ConstellationFlower position={[0,0,.2]} scale={.92} phase={1.4} opacity={constellationOpacity}/>
+      <ConstellationFlower position={[2.6,0,1]} scale={.7} phase={2.1} opacity={constellationOpacity}/>
     </>}
     {shown.map((entry,i) => {
       const cols = compact ? 4 : 6; const row = Math.floor(i/cols); const col = i%cols
