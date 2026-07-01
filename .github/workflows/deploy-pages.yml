@@ -33,6 +33,10 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Build
         run: pnpm run build
+      - name: Ensure project Pages asset paths
+        run: |
+          sed -i 's#src="/assets/#src="/mindful-garden/assets/#g; s#href="/assets/#href="/mindful-garden/assets/#g' dist/index.html
+          grep -E 'assets/index' dist/index.html
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
