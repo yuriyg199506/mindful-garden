@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07151d" />
+    <meta name="description" content="正念花园——把此刻的焦虑，种成一朵会发光的花。" />
+    <title>正念花园 · Mindful Garden</title>
+    <script type="module" crossorigin src="/assets/index-B9cLC0CH.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CTJjaOOi.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="file-protocol-help" style="display:none;min-height:100vh;padding:10vh 24px;background:#06131a;color:#eef8f4;font-family:'Microsoft YaHei',sans-serif;text-align:center">
+      <div style="max-width:560px;margin:auto;padding:42px;border:1px solid rgba(194,243,228,.18);border-radius:18px;background:rgba(255,255,255,.035)">
+        <div style="font-size:38px;margin-bottom:18px">❧</div>
+        <h1 style="font-weight:400;font-size:28px">花园需要先被轻轻唤醒</h1>
+        <p style="color:#96aaa7;line-height:1.9">请关闭这个页面，然后双击项目文件夹里的<br><strong style="color:#a5f1d8">START_GARDEN.bat</strong></p>
+        <p style="color:#637b76;font-size:12px;margin-top:28px">浏览器出于安全限制，不能直接从硬盘加载 3D 网页模块。</p>
+      </div>
+    </div>
+    <script>
+      if (location.protocol === 'file:') {
+        document.getElementById('root').style.display = 'none';
+        document.getElementById('file-protocol-help').style.display = 'block';
+      }
+    </script>
+  </body>
+</html>
